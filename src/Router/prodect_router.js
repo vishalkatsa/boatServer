@@ -6,5 +6,6 @@ const upload = require('../multer/multer');
 
 router.post('/creatproduct',upload.single('image'),product_controller.creatproduct);
 router.get('/getproduct',product_controller.getproduct);
+router.get('/getsingleproduct/:id',product_controller.getsingleproduct);
 
 module.exports = router;

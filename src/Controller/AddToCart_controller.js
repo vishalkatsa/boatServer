@@ -41,11 +41,11 @@ const getaddtocardproduct = async (req, res) => {
     }
 }
 const updateproductquantity = async (req, res) => {
-    const { quantity, _id,price } = req.body;
+    const { quantity, _id } = req.body;
 
     try {
         if (_id | quantity !== 0) {
-            const updatedquantity = await AddToCart.findByIdAndUpdate(_id, { quantity ,price});
+            const updatedquantity = await AddToCart.findByIdAndUpdate(_id, { quantity });
             return res.status(201).json({ message: "updatedquantity_201", updatedquantity: updatedquantity })
         } else if (quantity === 0) {
             const deleted = await AddToCart.findByIdAndDelete(_id);
@@ -66,9 +66,25 @@ const deleteaddtocardproduct = async (req,res)=>{
         if (_id) {
             const deletedAddtocard = await AddToCart.findByIdAndDelete(_id);
             return res.status(200).json({message:"deletedAddtocard_200",deletedAddtocard})
-        }deletedAddtocard
+        }
     } catch (error) {
         return res.status(500).json({message:"deletedAddtocard_500",error})
     }
 }
-module.exports = { addtocardproduct, getaddtocardproduct, updateproductquantity ,deleteaddtocardproduct}
+const deleteaddtocardall = async (req, res) => {
+    try {
+        const userId = req.params.userid;
+        if (userId) {
+            const deletedAddtocard = await AddToCart.deleteMany({userId});
+            if (deletedAddtocard) {
+                return res.status(200).json({ message: "deletedAddtocard_200", deletedAddtocard });
+            } else {
+                return res.status(404).json({ message: "No documents found with the provided userId" });
+            }
+        }
+    } catch (error) {
+        return res.status(500).json({ message: "deletedAddtocard_500", error });
+    }
+}
+
+module.exports = { addtocardproduct, getaddtocardproduct, updateproductquantity ,deleteaddtocardproduct,deleteaddtocardall}

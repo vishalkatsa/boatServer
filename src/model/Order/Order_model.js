@@ -24,15 +24,27 @@ const SchemaOrder = Schema({
         ref:"shippingaddress",
         // require:true,
     },
-    // sellerId: {
-    //     type:Schema.Types.ObjectId,
-    //     ref:"sellerauth",
-    //     require:true,
-    // },
+    sellerId: {
+        type:Schema.Types.ObjectId,
+        ref:"sellerauth",
+        require:true,
+    },
      userId: {
         type:Schema.Types.ObjectId,
         ref:"user",
         require:true,
+    },
+    paymentStatus:{
+        type:Boolean,
+        default:false
+    },
+    paymentID:{
+        type:String,
+
+    },
+    cancelStatus:{
+        type:Boolean,
+        default:false
     },
     creatAt:{
         type:Date,

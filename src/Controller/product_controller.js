@@ -34,5 +34,16 @@ const getproduct = async (req, res) => {
         // console.log(error);
     }
 }
+const getsingleproduct = async (req, res) => {
+    try {
+        const _id = req.params.id;
+        const singleproduct = await Product.findById(_id);
+        return res.status(200).json({ message: "singleproductGet_200", singleproduct });
+    } catch (error) {
+        res.status(400).json({ message: "singleproductErrorGet_400", error: error.message });
+        // console.log(error);
+    }
+    
+}
 
-module.exports = { creatproduct, getproduct };
+module.exports = { creatproduct, getproduct,getsingleproduct };
